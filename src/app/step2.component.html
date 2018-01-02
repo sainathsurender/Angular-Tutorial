@@ -1,0 +1,24 @@
+<h3>Step 2: Read XML Files and Update Maker</h3>
+<p>Read XML Files and Update/Archieve Maker Data Respectively</p>
+<div class="alert alert-success alert-dismissable fade in" *ngIf="ShowSuccessMessage">
+  <strong>Success!</strong> {{SuccessMessage}}
+</div>
+<div class="alert alert-danger alert-dismissable fade in" *ngIf="ShowErrorMessage">
+  <strong>Danger!</strong> {{ErrorMessage}}
+</div>
+
+<div class="form-group">
+  <input type="button" class="btn btn-primary" value="Read XML Files" (click)="ReadXML()" />
+</div>
+
+<div class="form-group">
+  <input type="button" class="btn btn-primary" value="EUIN Update" />
+</div>
+
+<div *ngIf="ShowLoader" id="divLoading" style="margin: 0px; padding: 0px; position: fixed; right: 0px;
+top: 0px; width: 100%; height: 100%; background-color: #666666; z-index: 30001;
+opacity: .8; filter: alpha(opacity=70);">
+  <p style="position: absolute; top: 30%; left: 45%; color: White;">
+    <img src="../assets/ajax-loading.gif">
+  </p>
+</div>

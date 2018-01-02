@@ -1,0 +1,50 @@
+<div class="form-group  col-sm-12">
+    <h3>Step 4: CDMS Log for date</h3>
+    <p>Below search will display a log of CDMS Executed from "Date" onwards based on date selected below.</p>
+    <div class="form-group">
+        <label for="usr">Fund Code:</label>
+        <input type="text" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="usr">CDMS Execution Date:</label>
+
+        <input type="date" class="form-control" />
+    </div>
+    <div class="form-group col-sm-12" [style.text-align]="'center'">
+        <input type="submit" class="btn btn-primary" value="Search" />
+    </div>
+</div>
+
+<table class="table table-striped">
+    <tr>
+        <th>Fund Name
+        </th>
+        <th>Fund Code
+        </th>
+        <th>Batch Date
+        </th>
+        <th>Log Status
+        </th>
+        <th>Executed Date
+        </th>
+    </tr>
+
+    <tr *ngFor="let executionstatus of model">
+        <td>
+            {{executionstatus.FundName}}
+        </td>
+        <td>
+            {{executionstatus.FundCode}}
+        </td>
+        <td>
+            {{executionstatus.BatchDate}}
+        </td>
+        <td>
+            {{executionstatus.LogStatus}}
+        </td>
+        <td>
+            {{executionstatus.DateCreated}}
+        </td>
+    </tr>
+</table>
