@@ -3,17 +3,17 @@
     <p>CDMS updation made easy.</p>
 </div>
 <ul class="nav nav-tabs">
-    <li class="active" id="listep1" [ngClass]="{ 'active': activeli == 'listep1' }">
-        <a href="#" routerLink="/Step1" (click)="clickevent($event)" id="ancstep1">Step 1</a>
+    <li class="active" id="listep1" [ngClass]="{ 'active': activeli == 1 }">
+        <a href="#" routerLink="/Step1" (click)="clickevent('1')">Step 1</a>
     </li>
-    <li id="listep2" [ngClass]="{ 'active': activeli == 'listep2' }">
-        <a href="#" routerLink="/Step2" (click)="clickevent($event)" id="ancstep2">Step 2</a>
+    <li id="listep2" [ngClass]="{ 'active': activeli == 2 }">
+        <a href="#" routerLink="/Step2" (click)="clickevent('2')">Step 2</a>
     </li>
-    <li id="listep3" [ngClass]="{ 'active': activeli == 'listep3' }">
-        <a href="#" routerLink="/Step3" (click)="clickevent($event)" id="ancstep3">Step 3</a>
+    <li id="listep3" [ngClass]="{ 'active': activeli == 3 }">
+        <a href="#" routerLink="/Step3" (click)="clickevent('3')">Step 3</a>
     </li>
-    <li id="listep4" [ngClass]="{ 'active': activeli == 'listep4' }">
-        <a href="#" routerLink="/Step4" (click)="clickevent($event)" id="ancstep4">Step 4</a>
+    <li id="listep4" [ngClass]="{ 'active': activeli == 4 }">
+        <a href="#" routerLink="/Step4" (click)="clickevent('4')">Step 4</a>
     </li>
 </ul>
 <router-outlet></router-outlet>

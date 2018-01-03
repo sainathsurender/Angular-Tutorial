@@ -7,10 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent{ 
 
-  activeli ='listep1';
+  activeli ='1';
 
-  public clickevent(event){
-    let lictrl = event.target.id.replace("anc","li");
-    this.activeli = lictrl;
+  public clickevent(id){
+    this.activeli = id;
   }
 }
