@@ -3,15 +3,17 @@
     <p>Select batch date and click on Execute to start CDMS updation for all the funds and check the status for each funds in
         the next tab.</p>
     <div class="form-group">
-        <input type="text" class="form-control" />
+        <select class="form-control" [(ngModel)]="SelectedFundCode">
+            <option *ngFor="let fund of model" [ngValue]="fund">{{fund.FundName}}</option>
+          </select>
     </div>
     <div class="form-group col-sm-12" [style.text-align]="'center'">
         <h5>-OR-</h5>
     </div>
     <div class="form-group">
-        <input type="date" class="form-control" />
+        <input type="date" class="form-control" [(ngModel)]="SelectedBatchDate" />
     </div>
     <div class="form-group col-sm-12" [style.text-align]="'center'">
-            <input type="submit" class="btn btn-primary" value="Execute"  />
+            <input type="button" class="btn btn-primary" value="Execute" (click)="Execute(SelectedFundCode,SelectedBatchDate)"  />
     </div>
 </div>

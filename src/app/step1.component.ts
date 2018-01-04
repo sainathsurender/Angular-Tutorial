@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Step1ListDTO } from './step1-listdto';
 import { CDMSService } from './cdms-service';
 import { PopupComponent } from './popup.component';
 import { config } from './app.config';

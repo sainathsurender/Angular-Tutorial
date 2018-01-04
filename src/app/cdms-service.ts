@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http, Response,RequestOptions,Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 
-import { Step1ListDTO } from './step1-listdto';
-
 @Injectable()
 export class CDMSService {
+
+  test;
   constructor(
     private http: Http
   ) { }
@@ -14,10 +14,17 @@ export class CDMSService {
   get(path): Observable<any> {
     return this.http.get(path)
       .map((response: Response) => {
-        if(response.json().ResponseStatus == '1')
-        {
-          return <any>response.json();
-        }
+        return <any>response.json();
       })
+  }
+
+  post(path,Request): Observable<any>{
+    console.log(Request);
+    // let header = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8','Accept' : 'application/json' });
+    let header = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({headers: header });
+
+    return this.http.post(path,JSON.stringify(Request),options)
+      .map(data => alert('1'));
   }
 } 

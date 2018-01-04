@@ -15,25 +15,37 @@ export class Step2Component {
   SuccessMessage;
   ShowErrorMessage = false;
   ErrorMessage;
-  constructor(private service:CDMSService){
-    
+  constructor(private service: CDMSService) {
+
   }
-  
-  ReadXML(){
+ 
+  ReadXML() {
     this.ShowLoader = true;
     this.service.get(config.APIPath + '/ReadXML').subscribe(data => {
-      if(data != undefined && data.ResponseStatus == 1){
-        alert('1');
+      if (data != undefined && data.ResponseStatus == 1) {
         this.ShowSuccessMessage = true;
         this.SuccessMessage = "Files read successfully";
       }
-      else
-      {
-        alert('2');
+      else {
         this.ShowErrorMessage = true;
-        this.ErrorMessage ="Error reading files";
+        this.ErrorMessage = "Error reading files";
       }
-      });
+    });
+    this.ShowLoader = false;
+  }
+
+  UpdateEUIN() {
+    this.ShowLoader = true;
+    this.service.get(config.APIPath + '/UpdateEUIN').subscribe(data => {
+      if (data != undefined && data.ResponseStatus == 1) {
+        this.ShowSuccessMessage = true;
+        this.SuccessMessage = "Files read successfully";
+      }
+      else {
+        this.ShowErrorMessage = true;
+        this.ErrorMessage = "Error reading files";
+      }
+    });
     this.ShowLoader = false;
   }
 }
