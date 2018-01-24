@@ -24,10 +24,15 @@ export class Step1Component implements OnInit {
     this.ShowLoader = true;
     this.objCDMSService.get(config.APIPath + `/CDMSFiles`).subscribe(
       data => {
-      if(data != undefined && data.ResponseStatus == 1){
-        this.CDMSFile = data;
-      }
-      this.ShowLoader = false;
+        if (data != undefined && data.ResponseStatus == config.Success) {
+          this.CDMSFile = data;
+        }
+        else {
+          this.ShowErrorMessage = true;
+          this.ErrorMessage = data.ResponseMessage;
+        }
+
+        this.ShowLoader = false;
       })
   }
 
@@ -35,8 +40,13 @@ export class Step1Component implements OnInit {
     this.ShowLoader = true;
     this.objCDMSService.get(config.APIPath + `/ExtractedFiles`).subscribe(
       data => {
-        if(data != undefined && data.ResponseStatus == 1){
+        if (data != undefined && data.ResponseStatus == config.Success) {
           this.ExtractedFiles = data
+        }
+        else
+        {
+          this.ShowErrorMessage = true;
+          this.ErrorMessage = data.ResponseMessage;
         }
         this.ShowLoader = false;
       })
@@ -46,7 +56,7 @@ export class Step1Component implements OnInit {
     this.ShowLoader = true;
     this.objCDMSService.get(config.APIPath + `/ExtractFile?archiveFilenameIn=` + filename).subscribe(
       data => {
-        if (data != undefined && data.ResponseStatus == 1) {
+        if (data != undefined && data.ResponseStatus == config.Success) {
           this.ShowSuccessMessage = true;
           this.SuccessMessage = "Files extracted successfully for " + filename;
         }
@@ -63,13 +73,13 @@ export class Step1Component implements OnInit {
     this.ShowLoader = true;
     this.objCDMSService.get(config.APIPath + `/ClearFiles`).subscribe(
       data => {
-        if (data != undefined && data.ResponseStatus == 1) {
+        if (data != undefined && data.ResponseStatus == config.Success) {
           this.ShowSuccessMessage = true;
           this.SuccessMessage = "Files cleared successfully.";
         }
         else {
           this.ShowErrorMessage = true;
-          this.ErrorMessage = "Unable to clear files.";
+          this.ErrorMessage = data.ResponseMessage;
         }
 
         this.ShowLoader = false;

@@ -11,19 +11,25 @@ import { Request } from './request.model';
   providers: [CDMSService]
 })
 export class Step3Component implements OnInit {
-
+  ShowLoader = false;
+  ShowSuccessMessage = false;
+  SuccessMessage;
+  ShowErrorMessage = false;
+  ErrorMessage;
+  model;
+  
   constructor(private http: Http, private service: CDMSService) { }
 
-  model;
-
   ngOnInit() {
+    this.ShowLoader = true;
     this.http.get('../assets/funds.json').subscribe(data => {
       this.model = data.json();
     })
+    this.ShowLoader = false;
   }
 
   Execute(SelectedFund, BatchDate) {
-
+    this.ShowLoader = true;
     let request = new Request();
     request.BatchDate = BatchDate;
 
@@ -31,7 +37,7 @@ export class Step3Component implements OnInit {
       request.FundName = SelectedFund.FundName;
       request.FundCode = SelectedFund.FundCode;
 
-      // this.ExecuteQuery(request);
+      this.ExecuteQuery(request);
 
     }
     else {
@@ -50,12 +56,13 @@ export class Step3Component implements OnInit {
         });
       }
     }
+    this.ShowLoader = false;
   }
 
   ExecuteQuery(body) {
     this.service.post(config.APIPath + 'ExecuteCDMSForFunds', body)
       .subscribe(data => {
-        if (data != undefined && data.ResponseStatus == 0) {
+        if (data != undefined && data.ResponseStatus == config.Success) {
           alert('11');
         }
         else {

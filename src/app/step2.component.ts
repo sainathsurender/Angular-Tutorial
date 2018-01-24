@@ -22,13 +22,13 @@ export class Step2Component {
   ReadXML() {
     this.ShowLoader = true;
     this.service.get(config.APIPath + '/ReadXML').subscribe(data => {
-      if (data != undefined && data.ResponseStatus == 1) {
+      if (data != undefined && data.ResponseStatus == config.Success) {
         this.ShowSuccessMessage = true;
         this.SuccessMessage = "Files read successfully";
       }
       else {
         this.ShowErrorMessage = true;
-        this.ErrorMessage = "Error reading files";
+        this.ErrorMessage = data.ResponseMessage;
       }
     });
     this.ShowLoader = false;
@@ -37,13 +37,13 @@ export class Step2Component {
   UpdateEUIN() {
     this.ShowLoader = true;
     this.service.get(config.APIPath + '/UpdateEUIN').subscribe(data => {
-      if (data != undefined && data.ResponseStatus == 1) {
+      if (data != undefined && data.ResponseStatus == config.Success) {
         this.ShowSuccessMessage = true;
         this.SuccessMessage = "Files read successfully";
       }
       else {
         this.ShowErrorMessage = true;
-        this.ErrorMessage = "Error reading files";
+        this.ErrorMessage = data.ResponseMessage;
       }
     });
     this.ShowLoader = false;
