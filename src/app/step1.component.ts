@@ -3,33 +3,30 @@ import { Component, OnInit } from '@angular/core';
 import { CDMSService } from './cdms-service';
 import { PopupComponent } from './popup.component';
 import { config } from './app.config';
+import {NotificationsService} from 'angular2-notifications';
 
 @Component({
   selector: 'app-step1',
   templateUrl: './step1.component.html',
-  providers: [CDMSService]
+  providers: [CDMSService,NotificationsService]
 })
 export class Step1Component implements OnInit {
 
-  constructor(private objCDMSService: CDMSService) { }
-  CDMSFile = [];
-  ExtractedFiles = [];
+  constructor(private objCDMSService: CDMSService, private _service: NotificationsService) { }
+  CDMSFile: any[];
+  ExtractedFiles: any[];
   ShowLoader = false;
-  ShowSuccessMessage = false;
-  SuccessMessage;
-  ShowErrorMessage = false;
-  ErrorMessage;
+  options = config.PopupConfig;
 
   ngOnInit() {
     this.ShowLoader = true;
     this.objCDMSService.get(config.APIPath + `/CDMSFiles`).subscribe(
       data => {
         if (data != undefined && data.ResponseStatus == config.Success) {
-          this.CDMSFile = data;
+          this.CDMSFile = data.CDMSFiles;
         }
         else {
-          this.ShowErrorMessage = true;
-          this.ErrorMessage = data.ResponseMessage;
+          this._service.error('Error',data.ResponseMessage);
         }
 
         this.ShowLoader = false;
@@ -41,12 +38,12 @@ export class Step1Component implements OnInit {
     this.objCDMSService.get(config.APIPath + `/ExtractedFiles`).subscribe(
       data => {
         if (data != undefined && data.ResponseStatus == config.Success) {
-          this.ExtractedFiles = data
+          this.ExtractedFiles = data.CDMSFiles;
         }
         else
         {
-          this.ShowErrorMessage = true;
-          this.ErrorMessage = data.ResponseMessage;
+          this._service.error('Error',data.ResponseMessage);
+          this.ExtractedFiles = null;
         }
         this.ShowLoader = false;
       })
@@ -57,12 +54,10 @@ export class Step1Component implements OnInit {
     this.objCDMSService.get(config.APIPath + `/ExtractFile?archiveFilenameIn=` + filename).subscribe(
       data => {
         if (data != undefined && data.ResponseStatus == config.Success) {
-          this.ShowSuccessMessage = true;
-          this.SuccessMessage = "Files extracted successfully for " + filename;
+          this._service.success('Success',"Files extracted successfully for " + filename);
         }
         else {
-          this.ShowErrorMessage = true;
-          this.ErrorMessage = "Unable to extract for " + filename;
+          this._service.error('Error',"Unable to extract for " + filename);
         }
 
         this.ShowLoader = false;
@@ -74,12 +69,10 @@ export class Step1Component implements OnInit {
     this.objCDMSService.get(config.APIPath + `/ClearFiles`).subscribe(
       data => {
         if (data != undefined && data.ResponseStatus == config.Success) {
-          this.ShowSuccessMessage = true;
-          this.SuccessMessage = "Files cleared successfully.";
+          this._service.success('Success',"Files cleared successfully.");
         }
         else {
-          this.ShowErrorMessage = true;
-          this.ErrorMessage = data.ResponseMessage;
+          this._service.error('Error',data.ResponseMessage);
         }
 
         this.ShowLoader = false;

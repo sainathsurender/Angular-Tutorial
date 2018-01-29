@@ -4,21 +4,21 @@ import { Http, RequestOptions } from '@angular/http';
 import { CDMSService } from './cdms-service';
 import { config } from './app.config';
 import { Request } from './request.model';
+import {NotificationsService} from 'angular2-notifications';
 
 @Component({
   selector: 'app-step3',
   templateUrl: './step3.component.html',
-  providers: [CDMSService]
+  providers: [CDMSService,NotificationsService]
 })
 export class Step3Component implements OnInit {
   ShowLoader = false;
-  ShowSuccessMessage = false;
-  SuccessMessage;
-  ShowErrorMessage = false;
-  ErrorMessage;
   model;
+  options = config.PopupConfig;
+  SelectedFundCode = [];
+  SelectedBatchDate = [];
   
-  constructor(private http: Http, private service: CDMSService) { }
+  constructor(private http: Http, private service: CDMSService, private _service: NotificationsService) { }
 
   ngOnInit() {
     this.ShowLoader = true;
@@ -60,14 +60,16 @@ export class Step3Component implements OnInit {
   }
 
   ExecuteQuery(body) {
+    this.ShowLoader = true;
     this.service.post(config.APIPath + 'ExecuteCDMSForFunds', body)
       .subscribe(data => {
         if (data != undefined && data.ResponseStatus == config.Success) {
-          alert('11');
+          this._service.success('Success',"CDMS schedules created successfully.");
         }
         else {
-          alert('12');
+          this._service.error('Error',"Unable to create CDMS schedules.");
         }
+        this.ShowLoader = false;
       })
   }
 }

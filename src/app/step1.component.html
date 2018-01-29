@@ -16,13 +16,6 @@ opacity: .8; filter: alpha(opacity=70);">
         <li>Displaying/Clearing existing CDMS files</li>
       </ul>
 
-      <div class="alert alert-success alert-dismissable fade in" *ngIf="ShowSuccessMessage">
-        <strong>Success!</strong> {{SuccessMessage}}
-      </div>
-      <div class="alert alert-danger alert-dismissable fade in" *ngIf="ShowErrorMessage">
-        <strong>Danger!</strong> {{ErrorMessage}}
-      </div>
-
       <div class="form-group">
         <button type="button" class="btn btn-info btn-md" (click)="ViewExtractedFiles()" data-toggle="modal" data-target="#ExtractFilesModal">Show Extracted Files</button>
         <button type="Submit" class="btn btn-info btn-md" (click)="ClearFiles()">Clear Files</button>
@@ -40,7 +33,7 @@ opacity: .8; filter: alpha(opacity=70);">
             </th>
           </tr>
           <tbody>
-            <tr *ngFor="let files of CDMSFile.CDMSFiles">
+            <tr *ngFor="let files of CDMSFile">
               <td [style.vertical-align]="'middle'">
                 {{files.Filename}}
               </td>
@@ -65,10 +58,10 @@ opacity: .8; filter: alpha(opacity=70);">
   <div class="modal-dialog modal-lg">
 
     <!-- Modal content-->
-    <div class="modal-content" *ngIf="(ExtractedFiles && ExtractedFiles.CDMSFiles?.length > 0) else NoFilesExtracted">
+    <div class="modal-content" *ngIf="(ExtractedFiles && ExtractedFiles?.length > 0) else NoFilesExtracted">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Extracted Files List(Total: {{ExtractedFiles.CDMSFiles.length}})</h4>
+        <h4 class="modal-title">Extracted Files List(Total: {{ExtractedFiles.length}})</h4>
       </div>
 
       <div class="modal-body custom-modal">
@@ -78,7 +71,7 @@ opacity: .8; filter: alpha(opacity=70);">
               File Name
             </th>
           </tr>
-          <tr *ngFor="let file of ExtractedFiles.CDMSFiles">
+          <tr *ngFor="let file of ExtractedFiles">
             <td>
               {{file.Filename}}
             </td>
@@ -86,7 +79,7 @@ opacity: .8; filter: alpha(opacity=70);">
         </table>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-info btn-md" data-dismiss="modal">Close</button>
       </div>
     </div>
     <ng-template #NoFilesExtracted>
@@ -99,9 +92,10 @@ opacity: .8; filter: alpha(opacity=70);">
           No files have been extracted.
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-info btn-md" data-dismiss="modal">Close</button>
         </div>
       </div>
     </ng-template>
   </div>
 </div>
+<simple-notifications [options]="options"></simple-notifications>

@@ -12,6 +12,8 @@ import { Step3Component } from './step3.component';
 import { Step4Component } from './step4.component';
 import { PopupComponent } from './popup.component';
 import { ErrorComponent } from './error.component';
+import { SimpleNotificationsModule } from 'angular2-notifications';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const appRoutes: Routes = [
   { path: '', component: Step1Component, pathMatch: 'full' },
@@ -37,7 +39,9 @@ const appRoutes: Routes = [
     BrowserModule,
     RouterModule.forRoot(appRoutes),
     HttpModule,
-    BootstrapModalModule
+    BootstrapModalModule,
+    BrowserAnimationsModule, 
+    SimpleNotificationsModule.forRoot()
   ],
   entryComponents: [
     PopupComponent

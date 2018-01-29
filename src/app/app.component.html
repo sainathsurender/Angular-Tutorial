@@ -3,19 +3,18 @@
     <p>CDMS updation made easy.</p>
 </div>
 
-
 <ul class="nav nav-tabs">
-    <li class="active" id="listep1" [ngClass]="{ 'active': activeli == 1 }">
-        <a href="#" routerLink="/Step1" (click)="clickevent('1')">Step 1</a>
+    <li [routerLinkActive]="['active']">
+        <a href="#" [routerLink]="['/Step1']">Step 1</a>
     </li>
-    <li id="listep2" [ngClass]="{ 'active': activeli == 2 }">
-        <a href="#" routerLink="/Step2" (click)="clickevent('2')">Step 2</a>
+    <li [routerLinkActive]="['active']">
+        <a href="#" [routerLink]="['/Step2']">Step 2</a>
     </li>
-    <li id="listep3" [ngClass]="{ 'active': activeli == 3 }">
-        <a href="#" routerLink="/Step3" (click)="clickevent('3')">Step 3</a>
+    <li [routerLinkActive]="['active']">
+        <a href="#" [routerLink]="['/Step3']">Step 3</a>
     </li>
-    <li id="listep4" [ngClass]="{ 'active': activeli == 4 }">
-        <a href="#" routerLink="/Step4" (click)="clickevent('4')">Step 4</a>
+    <li [routerLinkActive]="['active']">
+        <a href="#" [routerLink]="['/Step4']">Step 4</a>
     </li>
 </ul>
 <router-outlet></router-outlet>

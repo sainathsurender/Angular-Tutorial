@@ -2,18 +2,28 @@
     <h3>Step 3: Update CDMS Data</h3>
     <p>Select batch date and click on Execute to start CDMS updation for all the funds and check the status for each funds in
         the next tab.</p>
-    <div class="form-group">
+    <div class="form-group col-sm-4">
         <select class="form-control" [(ngModel)]="SelectedFundCode">
             <option *ngFor="let fund of model" [ngValue]="fund">{{fund.FundName}}</option>
-          </select>
+        </select>
+
+        <div [style.text-align]="'center'">
+            <h5>-OR-</h5>
+        </div>
+        <div>
+            <input type="date" class="form-control" [(ngModel)]="SelectedBatchDate" />
+        </div>
     </div>
-    <div class="form-group col-sm-12" [style.text-align]="'center'">
-        <h5>-OR-</h5>
-    </div>
-    <div class="form-group">
-        <input type="date" class="form-control" [(ngModel)]="SelectedBatchDate" />
-    </div>
-    <div class="form-group col-sm-12" [style.text-align]="'center'">
-            <input type="button" class="btn btn-primary" value="Execute" (click)="Execute(SelectedFundCode,SelectedBatchDate)"  />
+    <div class="form-group col-sm-12" [style.text-align]="'left'">
+        <!-- <input type="button" class="btn btn-info btn-md" value="Execute" (click)="Execute(SelectedFundCode,SelectedBatchDate)" /> -->
+        <button type="button" class="btn btn-info btn-md" (click)="Execute(SelectedFundCode,SelectedBatchDate)">Execute</button>
     </div>
 </div>
+<div *ngIf="ShowLoader" id="divLoading" style="margin: 0px; padding: 0px; position: fixed; right: 0px;
+top: 0px; width: 100%; height: 100%; background-color: #666666; z-index: 30001;
+opacity: .8; filter: alpha(opacity=70);">
+  <p style="position: absolute; top: 30%; left: 45%; color: White;">
+    <img src="../assets/ajax-loading.gif">
+  </p>
+</div>
+<simple-notifications [options]="options"></simple-notifications>

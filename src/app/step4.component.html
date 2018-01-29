@@ -3,48 +3,100 @@
     <p>Below search will display a log of CDMS Executed from "Date" onwards based on date selected below.</p>
     <div class="form-group">
         <label for="usr">Fund Code:</label>
-        <input type="text" class="form-control" />
+        <input type="text" class="form-control" [(ngModel)]="SelectFundCode" />
     </div>
 
     <div class="form-group">
         <label for="usr">CDMS Execution Date:</label>
-
-        <input type="date" class="form-control" />
+        <input type="date" class="form-control" [(ngModel)]="SelectedBatchDate" />
     </div>
     <div class="form-group col-sm-12" [style.text-align]="'center'">
-        <input type="submit" class="btn btn-primary" value="Search" />
+        <input type="submit" class="btn btn-info btn-md" value="Search" (click)="SearchCDMSLog(SelectFundCode,SelectedBatchDate)"
+        />
+    </div>
+    <div class="form-group col-sm-12" *ngIf="model && CDMSExecutionLogList && CDMSExecutionLogList.length > 0">
+        <button type="button" class="btn btn-info btn-md" *ngFor="let obj of model.StatusDic">{{obj.Status}}
+            <span class="badge">{{obj.Count}}</span>
+        </button>
+        <input type="button" class="btn btn-info btn-md" value="Show All Details" data-toggle="modal" data-target="#CDMSExecutionLogListModal"
+        />
+    </div>
+    <ng-template #NoFilesExtracted>
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Extracted Files List</h4>
+              </div>
+              <div class="modal-body custom-modal">
+                No files have been extracted.
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-info btn-md" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </ng-template>
+</div>
+<div class="modal fade" id="CDMSExecutionLogListModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">CDMS ExecutionLog List
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </h4>
+            </div>
+
+            <div class="modal-body custom-modal-popup">
+                <table class="table table-striped">
+                    <tr>
+                        <th style="width: 12%;">Fund Name
+                        </th>
+                        <th style="width: 11%;">Fund Code
+                        </th>
+                        <th style="width: 12%;">Batch Date
+                        </th>
+                        <th>Log Status
+                        </th>
+                        <th style="width: 18%;">Executed Date
+                        </th>
+                        <th style="width: 18%;">Updated Date
+                        </th>
+                    </tr>
+
+                    <tr *ngFor="let executionstatus of CDMSExecutionLogList">
+                        <td>
+                            {{executionstatus.FundName}}
+                        </td>
+                        <td>
+                            {{executionstatus.FundCode}}
+                        </td>
+                        <td>
+                            {{executionstatus.BatchDate | date: 'dd/MMM/yyyy'}}
+                        </td>
+                        <td>
+                            {{executionstatus.LogStatus}}
+                        </td>
+                        <td>
+                            {{executionstatus.DateCreated | date: 'dd/MMM/yyyy hh:mm:ss'}}
+                        </td>
+                        <td>
+                            {{executionstatus.UpdatedDate | date: 'dd/MMM/yyyy hh:mm:ss'}}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info btn-md" data-dismiss="modal">Close</button>
+            </div>
+        </div>
     </div>
 </div>
-
-<table class="table table-striped">
-    <tr>
-        <th>Fund Name
-        </th>
-        <th>Fund Code
-        </th>
-        <th>Batch Date
-        </th>
-        <th>Log Status
-        </th>
-        <th>Executed Date
-        </th>
-    </tr>
-
-    <tr *ngFor="let executionstatus of model">
-        <td>
-            {{executionstatus.FundName}}
-        </td>
-        <td>
-            {{executionstatus.FundCode}}
-        </td>
-        <td>
-            {{executionstatus.BatchDate}}
-        </td>
-        <td>
-            {{executionstatus.LogStatus}}
-        </td>
-        <td>
-            {{executionstatus.DateCreated}}
-        </td>
-    </tr>
-</table>
+<div *ngIf="ShowLoader" id="divLoading" style="margin: 0px; padding: 0px; position: fixed; right: 0px;
+top: 0px; width: 100%; height: 100%; background-color: #666666; z-index: 30001;
+opacity: .8; filter: alpha(opacity=70);">
+  <p style="position: absolute; top: 30%; left: 45%; color: White;">
+    <img src="../assets/ajax-loading.gif">
+  </p>
+</div>
+<simple-notifications [options]="options"></simple-notifications>

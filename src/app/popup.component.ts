@@ -5,5 +5,5 @@ import { Component } from '@angular/core';
   templateUrl: './popup.component.html'
 })
 export class PopupComponent {
-  
+  ExtractedFiles = [];
 }
