@@ -16,9 +16,9 @@ export class Step4Component {
   ShowLoader = false;
   options = config.PopupConfig;
   model = [];
-  SelectedBatchDate = [];
+  SelectedBatchDate:any;
   CDMSExecutionLogList:any[];
-  SelectFundCode = [];
+  SelectFundCode:any;
 
   constructor(private objCDMSService: CDMSService, private _service: NotificationsService) { };
 
@@ -47,6 +47,7 @@ export class Step4Component {
         }
 
         this.ShowLoader = false;
-      })
+      }
+    )
   }
 }

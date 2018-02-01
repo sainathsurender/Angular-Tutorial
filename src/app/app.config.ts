@@ -1,5 +1,5 @@
 export var config = {
-    "APIPath":"http://localhost:61626/api/Default/",
+    "APIPath":"http://localhost:61626/api/Default/",    
     "Success":"1",
     "Error":"2",
     "PopupConfig":{
@@ -9,4 +9,5 @@ export var config = {
       clickToClose: true,
       maxLength: 10
     },
+    "FundUrl":"../assets/funds.json",
   }

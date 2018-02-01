@@ -15,14 +15,18 @@ export class Step3Component implements OnInit {
   ShowLoader = false;
   model;
   options = config.PopupConfig;
-  SelectedFundCode = [];
-  SelectedBatchDate = [];
+  SelectedFundCode:any;
+  SelectedBatchDate:any;
+  _productUrl: string = config.FundUrl;
   
-  constructor(private http: Http, private service: CDMSService, private _service: NotificationsService) { }
+  constructor(
+    private http: Http, 
+    private service: CDMSService, 
+    private _service: NotificationsService) { }
 
   ngOnInit() {
     this.ShowLoader = true;
-    this.http.get('../assets/funds.json').subscribe(data => {
+    this.http.get(this._productUrl).subscribe(data => {
       this.model = data.json();
     })
     this.ShowLoader = false;
@@ -32,7 +36,7 @@ export class Step3Component implements OnInit {
     this.ShowLoader = true;
     let request = new Request();
     request.BatchDate = BatchDate;
-
+    console.log(SelectedFund);
     if (SelectedFund != null) {
       request.FundName = SelectedFund.FundName;
       request.FundCode = SelectedFund.FundCode;
@@ -41,7 +45,7 @@ export class Step3Component implements OnInit {
 
     }
     else {
-      this.http.get('../assets/funds.json').subscribe(data => {
+      this.http.get(this._productUrl).subscribe(data => {
         this.model = data.json();
       })
 
@@ -51,7 +55,7 @@ export class Step3Component implements OnInit {
 
           request.FundName = element.FundName;
           request.FundCode = element.FundCode;
-
+          
           this.ExecuteQuery(request);
         });
       }
