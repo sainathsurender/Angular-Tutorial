@@ -15,7 +15,7 @@
         />
     </div>
     <div class="form-group col-sm-12" *ngIf="model && CDMSExecutionLogList && CDMSExecutionLogList.length > 0">
-        <button type="button" class="btn btn-info btn-md" *ngFor="let obj of model.StatusDic">{{obj.Status}}
+        <button type="button" class="btn btn-info btn-md" style="margin-right: 4px;" *ngFor="let obj of model.StatusDic">{{obj.Status}}
             <span class="badge">{{obj.Count}}</span>
         </button>
         <input type="button" class="btn btn-info btn-md" value="Show All Details" data-toggle="modal" data-target="#CDMSExecutionLogListModal"

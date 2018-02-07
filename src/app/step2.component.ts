@@ -13,7 +13,7 @@ export class Step2Component {
 
   ShowLoader = false;
   constructor(private service: CDMSService, private _service: NotificationsService) { }
-  options = config.PopupConfig;
+  options = config.AutoClosePopupConfig;
  
   ReadXML() {
     this.ShowLoader = true;
