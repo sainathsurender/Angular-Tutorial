@@ -1,0 +1,58 @@
+<main role="main">
+  <div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+    <div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
+      <div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div>
+    </div>
+    <div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
+      <div style="position:absolute;width:200%;height:200%;left:0; top:0"></div>
+    </div>
+  </div>
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+    <h1 class="h2">CDMS Execution Log</h1>
+  </div>  
+  <div class="row">
+    <div class="col-md-8 order-md-1">
+        <h5 class="d-flex justify-content-between align-items-center mb-3">
+            <span class="text-muted">Search CDMS Execution Log</span>
+          </h5>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">Enter Fund Code</span>
+        </div>
+        <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" [(ngModel)]="SelectFundCode">
+      </div>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">Batch Date</span>
+        </div>
+        <input type="date" class="form-control" aria-label="Username" aria-describedby="basic-addon1" [(ngModel)]="SelectedBatchDate">
+      </div>
+      <button type="button" class="btn btn-secondary btn-lg btn-block" (click)="SearchCDMSLog(SelectFundCode,SelectedBatchDate)">Search</button>
+    </div>
+    <div class="col-md-4 order-md-3 mb-4" *ngIf="model && CDMSExecutionLogList && CDMSExecutionLogList.length > 0">
+        <h5 class="d-flex justify-content-between align-items-center mb-3">
+            <span class="text-muted">Consolidated Counts</span>            
+          </h5>
+      <ul class="list-group mb-3">
+        <li class="list-group-item d-flex justify-content-between lh-condensed" *ngFor="let obj of model.StatusDic">
+          <div>
+            <h6 class="my-0">{{obj.Status}}</h6>
+          </div>
+          <span class="text-muted">{{obj.Count}}</span>
+        </li>
+        <li class="list-group-item list-group-item-dark d-flex justify-content-between">
+          <span>Total</span>
+          <strong>{{model.StatusCount}}</strong>
+        </li>
+      </ul>
+    </div>
+  </div>
+</main>
+<div *ngIf="ShowLoader" id="divLoading" style="margin: 0px; padding: 0px; position: fixed; right: 0px;
+top: 0px; width: 100%; height: 100%; background-color: #666666; z-index: 30001;
+opacity: .8; filter: alpha(opacity=70);">
+  <p style="position: absolute; top: 30%; left: 45%; color: White;">
+    <img src="../assets/ajax-loading.gif">
+  </p>
+</div>
+<simple-notifications [options]="options"></simple-notifications>

@@ -4,17 +4,17 @@ import { RouterModule, Routes } from '@angular/router';
 import { HttpModule } from '@angular/http';
 import { BootstrapModalModule } from 'ng2-bootstrap-modal';
 import { FormsModule } from '@angular/forms';
-
-import { AppComponent } from './app.component';
-import { Step1Component } from './step1.component';
-import { Step2Component } from './step2.component';
-import { Step3Component } from './step3.component';
-import { Step4Component } from './step4.component';
-import { PopupComponent } from './popup.component';
-import { ErrorComponent } from './error.component';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
+import { AppComponent } from './app.component';
+import { Step1Component } from './Step 1/step1.component'
+import { Step2Component } from './Step 2/step2.component';
+import { Step3Component } from './Step 3/step3.component';
+import { Step4Component } from './Step 4/step4.component';
+import { PopupComponent } from './Custom Components/popup.component';
+import { ErrorComponent } from './Custom Components/error.component';
 
 const appRoutes: Routes = [
   { path: '', component: Step1Component, pathMatch: 'full' },

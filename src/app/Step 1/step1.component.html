@@ -1,0 +1,88 @@
+<main role="main">
+  <div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+    <div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
+      <div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div>
+    </div>
+    <div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
+      <div style="position:absolute;width:200%;height:200%;left:0; top:0"></div>
+    </div>
+  </div>
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+    <h1 class="h2">CDMS Files</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+      <div class="btn-group mr-2">
+        <button class="btn btn-sm btn-outline-secondary" (click)="ClearFiles()">Clear Extracted Files</button>
+        <button class="btn btn-sm btn-outline-secondary" (click)="ViewExtractedFiles(content)">Show Extracted Files</button>
+      </div>
+      <button class="btn btn-sm btn-outline-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Select Duration
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <button type="button" class="dropdown-item btn btn-link" (click)="CustomCDMSFiles('Latest')">Latest</button>
+        <button type="button" class="dropdown-item btn btn-link" (click)="CustomCDMSFiles('This Week')">This Week</button>
+        <button type="button" class="dropdown-item btn btn-link" (click)="CustomCDMSFiles('All')">All</button>
+      </div>
+    </div>
+  </div>
+  <div class="input-group mb-3">
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon3">Search CDMS Files</span>
+      </div>
+      <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" (input)="SearchCDMSFiles(txtSearch.value)" #txtSearch>
+    </div>
+</div>
+  <div class="table-responsive" *ngIf="CDMSFile; else NoCDMSFiles">
+    <table class="table table-dark">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">File name
+          </th>
+          <th scope="col">Date Modified
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let files of CDMSFile; let i = index" [attr.data-index]="i">
+          <td scope="row">
+            {{i+ 1}}
+          </td>
+          <td>
+            <a (click)="ExtractFile(files.Filename)" class="text-white font-weight-bold">{{files.Filename}}</a>
+          </td>
+          <td>{{files.DateModified | date: 'dd MMM yyyy hh:mm:ss'}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <ng-template #NoCDMSFiles>
+    No Files to display
+  </ng-template>
+</main>
+<simple-notifications [options]="options"></simple-notifications>
+<div *ngIf="ShowLoader" id="divLoading" style="margin: 0px; padding: 0px; position: fixed; right: 0px;
+top: 0px; width: 100%; height: 100%; background-color: #666666; z-index: 30001;
+opacity: .8; filter: alpha(opacity=70);">
+  <p style="position: absolute; top: 30%; left: 45%; color: White;">
+    <img src="../assets/ajax-loading.gif">
+  </p>
+</div>
+
+<!-- Popup Modal -->
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Extracted Files List(Total: {{ExtractedFiles.length}})</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body custom-popup">
+    <ul class="list-group" *ngFor="let file of ExtractedFiles">
+      <li class="list-group-item">{{file.Filename}}</li>
+    </ul>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+  </div>
+</ng-template>
