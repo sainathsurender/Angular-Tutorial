@@ -1,5 +1,7 @@
 export class Request{
     FundCode:string;
     FundName:string;
-    BatchDate:Date
+    BatchDate:Date;
+    Username:string;
+    Password:string;
 }

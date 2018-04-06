@@ -15,14 +15,18 @@ import { Step3Component } from './Step 3/step3.component';
 import { Step4Component } from './Step 4/step4.component';
 import { PopupComponent } from './Custom Components/popup.component';
 import { ErrorComponent } from './Custom Components/error.component';
+import { AuthGuard } from './guard/auth.guard';
+import { LoginComponent } from './login/login.component';
+import { CDMSService } from './Services/cdms-service';
 
 const appRoutes: Routes = [
-  { path: '', component: Step1Component, pathMatch: 'full' },
-  { path: 'Step1', component: Step1Component, pathMatch: 'full' },
+  { path: '', component: Step1Component,canActivate: [AuthGuard],pathMatch: 'full' },
+  { path: 'Step1', component: Step1Component,canActivate: [AuthGuard],  pathMatch: 'full' },
   { path: 'Step2', component: Step2Component, pathMatch: 'full' },
   { path: 'Step3', component: Step3Component, pathMatch: 'full' },
   { path: 'Step4', component: Step4Component, pathMatch: 'full' },
-  { path: '**', component: ErrorComponent, pathMatch: 'full' },
+  { path: 'Login', component: LoginComponent, pathMatch: 'full' },
+  { path: '**', redirectTo: '' }
 ];
 
 @NgModule({
@@ -33,7 +37,8 @@ const appRoutes: Routes = [
     Step3Component,
     Step4Component,
     PopupComponent,
-    ErrorComponent
+    ErrorComponent,
+    LoginComponent,
   ],
   imports: [
     FormsModule,
@@ -41,14 +46,14 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     HttpModule,
     BootstrapModalModule,
-    BrowserAnimationsModule, 
+    BrowserAnimationsModule,
     SimpleNotificationsModule.forRoot(),
     NgbModule.forRoot()
   ],
   entryComponents: [
     PopupComponent
   ],
-  providers: [],
+  providers: [AuthGuard,CDMSService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
